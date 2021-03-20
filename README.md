@@ -15,10 +15,14 @@ ginicorn
 PyMySQL
 Flask
 flask-sqlalchemy
+SQLAlchemy<1.4
 flask_bootstrap
 flask_wtf
 cryptography
 ```
+
+NB Notice the SQLAlchemy line. This was a bug introduced March 15th wher ethe new Library (1.5) doesn't work.
+
 ## Deployment Steps
 
 To deploy this sample Python web application from the OpenShift web console, you should select ``python:3`` or ``python:latest``. 

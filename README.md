@@ -8,7 +8,7 @@ Used as a teaching aid for myself in how to add developed code from podman into 
 
 This sample Python application relies on the support provided by the default S2I builder for python apps.
 
-* The entry point application code file needs to be named ```wsgi.py``.
+* The entry point application code file needs to be named ``wsgi.py``.
 * The following python modules must be listed in the ``requirements.txt``
 ```
 ginicorn

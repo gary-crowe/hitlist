@@ -105,7 +105,7 @@ def add_record():
     form1 = AddRecord()
     if form1.validate_on_submit():
         # position = request.form['position']
-        position = total=Gits.query.count()+1
+        position = Gits.query.count()+1
         offender = request.form['offender']
         wiki = request.form['wiki']
         crime = request.form['crime']

@@ -9,6 +9,11 @@ from modules import convert_to_dict, make_ordinal
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 
+MYSQL_HOST="127.0.0.1"
+MYSQL_DATABASE="offenders"
+MYSQL_USER="gary"
+MYSQL_PASSWORD="redhat123"
+
 # check for environment variables. These will get passed from Openshift and setup the user/DB etc
 if not os.getenv("MYSQL_HOST"):
     raise RuntimeError("MYSQL_HOST is not set")

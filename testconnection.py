@@ -32,7 +32,7 @@ dbname   = '/offenders'
 # no socket
 
 # put them all together as a string that shows SQLAlchemy where the database is
-#app.config['SQLALCHEMY_DATABASE_URI'] = userpass + os.getenv("DATABASE_URL") + os.getenv("DATABASE_NAME")
+# app.config['SQLALCHEMY_DATABASE_URI'] = userpass + os.getenv("DATABASE_URL") + os.getenv("DATABASE_NAME")
 app.config['SQLALCHEMY_DATABASE_URI'] = userpass + server + dbname
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True

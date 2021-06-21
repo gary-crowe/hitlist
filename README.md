@@ -1,29 +1,33 @@
 # Flask Sample Application
-This is a simple flask application to maintain a database of "offenders". This is a tongue in cheek database ofr all the things/peple that upset me and what I would have done to them come the glorious revolution.
+This is a simple flask application to maintain a database of "offenders". This is a tongue in cheek database of all the things/peple that upset me and what I would have done to them come the glorious revolution.
 It requires the data to be present in a MYSQl database.  Pass the vaiables listed below to connect to it.
 
-Used as a teaching aid for myself in how to add developed code from podman into Openshift & playing around with VSC & Docker desktop.  Loving the container experience!
+I originally started developing the code using podman then developed this further so I could learn Openshift. As part of the excellent Redhat Partner training I decided to use this project as my demo of what I've learned so far.
+Very much a work in progress.
 
-## Running
-It requires gunicorn to run the webserver from Openshift/K8s.  Invoke using the main python file wsgi.py in these environments.
+# Diectories.
+| Directory | Description |
+| --------- | ----------- |
+| flask-static-test | Contains initial python code as starting point |
+| flask-with-mysql | Flask running locally using podman |
+| flask-with-oshift | Code developed to run under Openshift |
+| helm-blacklist | Helm chart for Openshift (Under development) |
+| kustomize | Kustomize CICD (under development) |
+| ocp3cmds | various OCP yaml files used for testing/developing the app |
+| sql-scripts | Contains SQL statements used to populate database |
+| static | Static code |
+| templates | Openshift templating files |
 
-The database should already exist and have the following schema:
-```
-CREATE TABLE gits (
-position TINYINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-offender varchar(40),
-wiki varchar(100),
-crime varchar(500),
-punishment varchar(200),
-image varchar(200),
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-I'm working on a template to pre-populate. 
+# Files
+| File | Description |
+| ---- | ----------- |
+| launch.bash | OCP script to run flask application |
+| launch_mysql.bash | OCP script to launch mysql application |
+| README.md | This file |
 
 ## Implementation Notes
 
-This sample Python application relies on the support provided by the default S2I builder for python apps.
+This sample Python Flask application relies on the support provided by the default S2I builder for python apps.
 
 * The entry point application code file needs to be named ``wsgi.py``.
 * The following python modules must be listed in the ``requirements.txt``
@@ -37,7 +41,7 @@ flask_bootstrap
 flask_wtf
 cryptography
 ```
-NB Notice the SQLAlchemy line. This was a bug introduced March 15th wher ethe new Library (1.5) doesn't work.
+NB Notice the SQLAlchemy line. This was a bug introduced March 15th where the new Library (1.5) doesn't work.
 
 ## Openshift Deployment Steps
 
@@ -60,4 +64,33 @@ If needing to select a specific Python version when using ``oc new-app``, you sh
 
 ```
 oc new-app python:3.6~https://github.com/gary-crowe/hitlist -e ...
+
+## Compile the mysql container with:
+```
+podman build -t thelist:latest .
+```
+# Run pod with:
+podman run -d -p 3306:3306  --name my-mysql -e MYSQL_ROOT_PASSWORD=supersecret localhost/thelist:0.1
+
+## If using the redhat image you need to pass a few more flags
+
+podman run -d -p 3306:3306  --name my-mysql \
+     -e MYSQL_USER=gary -e MYSQL_PASSWORD=redhat123 \
+     -e MYSQL_DATABASE=offenders -e MYSQL_ROOT_PASSWORD=redhat123 registry.redhat.io/rhscl/mysql-80-rhel7
+
+podman exec -it my-mysql /opt/rh/rh-mysql80/root/usr/bin/mysql -ugary -p
+
+https://medium.com/better-programming/customize-your-mysql-database-in-docker-723ffd59d8fb
+
+#Build specifics
+For the flask stuff & DB connectivity you will need to install the following in order to install the 
+flask mysql library under pip:
+```
+yum install python3-devel
+yum install mysql-devel
+```
+
+Now you can:
+```
+pip3 install flask-mysqldb
 ```

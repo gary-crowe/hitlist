@@ -1,0 +1,33 @@
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+    labels:
+      app: theblacklist
+    name: theblacklist
+  spec:
+    host: theblacklist.apps.ocp.local
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: theblacklist
+      weight: 100
+    wildcardPolicy: None
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+    labels:
+      app: mysql
+    name: mysql
+  spec:
+    ports:
+    - name: 3306-tcp
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      deployment: mysql
+  status:
+    loadBalancer: {}

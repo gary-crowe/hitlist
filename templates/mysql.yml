@@ -1,0 +1,129 @@
+kind: Template
+apiVersion: template.openshift.io/v1
+labels:
+  template: blacklist-ephemeral
+metadata:
+  annotations:
+    description: |-
+      TheBlacklist service, without persistent storage. For more information about using this template, see http://bastion2.zbd.local:3000/gary/TheBlackList
+
+      WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing
+    iconClass: icon-mysql-database
+    openshift.io/display-name: TheBlackList (Ephemeral)
+    openshift.io/documentation-url: http://bastion2.zbd.local:3000/gary/TheBlackList
+    openshift.io/long-description: This template provides a flask application
+      with a database created.  The database is not stored on persistent storage,
+      so any restart of the service will result in all data being lost.  The database
+      name, username, and password are all pre-defined.
+    openshift.io/provider-display-name: Go Red Industries (LTD)
+    openshift.io/support-url:  http://bastion2.zbd.local:3000/gary/TheBlackList
+    tags: database,mysql,blacklist
+  creationTimestamp: null
+  name: blacklist-ephemeral
+objects:
+################
+### Build config
+################
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    name: mysql
+    labels:
+      app: mysql
+  spec:
+    source:
+      git:
+        uri: 'http://bastion2.zbd.local:3000/gary/TheBlackList'
+        ref: clean
+      contextDir: flask-with-oshift
+      type: Git
+    strategy:
+      type: Source
+      sourceStrategy:
+        forcePull: true
+        from:
+          kind: ImageStreamTag
+          name: mysql:8.0
+          namespace: openshift
+    output:
+      to:
+        kind: ImageStreamTag
+        name: listmysql:latest
+    triggers:
+    - imageChange: {}
+      type: ImageChange
+    - type: ConfigChange
+
+##################
+### Service config
+##################
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: mysql
+    name: mysql
+  spec:
+    ports:
+    - name: 3306-tcp
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      deployment: mysql
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+#######
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app: mysql
+    name: mysql
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        deployment: mysql
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+        creationTimestamp: null
+        labels:
+          deployment: mysql
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_DATABASE
+            value: offenders
+          - name: MYSQL_OPERATIONS_PASSWORD
+            value: oppass
+          - name: MYSQL_OPERATIONS_USER
+            value: opuser
+          - name: MYSQL_PASSWORD
+            value: redhat123
+          - name: MYSQL_USER
+            value: gary
+          image: listmysql:latest
+          imagePullPolicy: IfNotPresent
+          name: mysql
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30

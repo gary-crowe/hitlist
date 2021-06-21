@@ -1,0 +1,116 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+name: blacklist-template
+metadata:
+  name: blacklist-template
+  annotation:
+    tags: python
+    iconClass: icon-rh-openjdk
+    openshift.io/display-name: The APPLICATION template    
+    description: This Template creates the APPLICATION
+objects:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: theblacklist
+    name: theblacklist
+  spec:
+    lookupPolicy:
+      local: false
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: theblacklist
+    name: theblacklist
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: theblacklist:latest
+    source:
+      contextDir: flask-with-oshift
+      git:
+        uri: http://bastion2.zbd.local:3000/gary/TheBlackList.git
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: python:3.8-ubi8
+          namespace: openshift
+      type: Source
+    triggers:
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+  status:
+    lastVersion: 0
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"theblacklist:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"theblacklist\")].image"}]'
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: theblacklist
+    name: theblacklist
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        deployment: theblacklist
+    strategy: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deployment: theblacklist
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_DATABASE
+            value: offenders
+          - name: MYSQL_HOST
+            value: mysql
+          - name: MYSQL_PASSWORD
+            value: redhat123
+          - name: MYSQL_USER
+            value: gary
+          image: ' '
+          name: theblacklist
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+  status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: theblacklist
+    name: theblacklist
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      deployment: theblacklist
+  status:
+    loadBalancer: {}

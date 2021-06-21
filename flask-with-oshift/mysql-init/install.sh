@@ -1,0 +1,33 @@
+mysql ${mysql_flags} offenders << EOF
+# position,offender,Wikipedia-entry,Crime,Punishment,Image,Creation,Created_at
+CREATE TABLE gits (
+position TINYINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+offender varchar(40),
+wiki varchar(100),
+crime varchar(500),
+punishment varchar(200),
+image varchar(200),
+created_at varchar(10)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+INSERT INTO gits (position, offender, wiki, crime, punishment, image, created_at)
+VALUES (1,"Rod Stewart","https://en.wikipedia.org/wiki/Rod_Stewart","Being too smug. He pretends he is Scottish although he was born in Highgate, London.","Firing squad","stewart.jpg","07-01-2021"),
+(2,"Chris Evans","https://en.wikipedia.org/wiki/Chris_Evans_(presenter)","Jesus, where do I start? He just makes my blood boil. Particarly hated it when he took over from Johnny Walker on the drive time BBC slot many Years ago therby upsetting my commute from Manchester every day. Thinks he's funny. Let me tell you, he is about as funny as plague.","Firing squad","evans.jpg","07-01-2021"),
+(3,"Simon Cowell","https://en.wikipedia.org/wiki/Simon_Cowell","X factor. Enough said. He has single handedly killed the music industry for those people who can play instruments and write their own material. If you try and play a decent gig as a band your told to go away as they can get a singer and a backing tape for £50. That's down to him. My blood pressure has just maxed out. I think I'm having a heart attack.","Hung, drawn and quartered","cowell.jpg","07-01-2021"),
+(4,"Claudia Winkleman","https://en.wikipedia.org/wiki/Claudia_Winkleman","£1,000,000 quid a Year of license fee money for having a fringe. I find her about as funny as a bout of Long Covid","Head shaved","winkleman.jpg","07-01-2021"),
+(5,"Celebrity Chefs","https://en.wikipedia.org/wiki/Celebrity_chef","Paid gazillions of quid for basically cooking ham, egg & chips in a poncy manner.","Firing squad, Eston Blumenthal first.","heston.jpg","07-01-2021"),
+(6,"Football Pundits","","They just drone on and on.None of them can be managers (Think Nevill@Valencia, Shearer@Newcastle)","Firing squad","neville.jpg","07-01-2021"),
+(7,"Brian Blessed","https://en.wikipedia.org/wiki/Brian_Blessed","HE WILL NOT STOP SHOUTING!!","Muzzled for Life","blessed.jpg","07-01-2021"),
+(8,"Gerwyn Price","https://en.wikipedia.org/wiki/Gerwyn_Price","Tungsten chucker. Really arrogant and pays no respect to any of his fellow beer guzzlers","Branded with English flags.","price.jpg","07-01-2021"),
+(9,"Strictly come dancing","https://en.wikipedia.org/wiki/Strictly_Come_Dancing","Saturday night dancing program for the proletariat. I cannot believe the majority of the public sit down in anticipation at watching this drivel.No No No No No","Taken off air and all contestants sent to Goolag.","strictly.jpg","07-01-2021"),
+(10,"Donald Trump","https://en.wikipedia.org/wiki/Donald_Trump","For killing a lot of people over his denial of and refusal to act on covid. A nut job of the first order.","Firing Squad and that's too good for him.","trump.jpg","07-01-2021"),
+(11,"Jacob Rees-Mogg","https://en.wikipedia.org/wiki/Jacob_Rees-Mogg","I think the vast majority of you lucky readers will be with me on this. Actually, all politicians thinking about it.","Beheading in the Tower. Head on spike outside the house of commons","mogg.jpg","07-01-2021"),
+(12,"Duke & Duchess of Sussex","https://en.wikipedia.org/wiki/Megxit#Sussex_Royal","We want a private life away from the papers etc. Ok. I get that. Then they setup a \$100,000,000 deal with NetFlix and want their smug faces on everything. You can't have it both ways.","Firing squad","sussex.jpg","07-01-2021"),
+(13,"Prince Andrew","https://en.wikipedia.org/wiki/Prince_Andrew","I was at a Pizza express in Woking. It couldn't have been me, I don't sweat. I'd like to see him hauled up in the American courts. We'd see him sweat then. Arrogant, self important, pompus. Guilty as charged as far as I am concerned.","Firing squad","randyandy.jpg","07-01-2021"),
+(14,"Cucumbers","https://en.wikipedia.org/wiki/Cucumber","Should be shot at birth. The only time I enjoyed a cucumber was when I removed it from my Tanqueray Gin.","Firing squad","cucumber.jpg","07-01-2021"),
+(15,"Woke","https://en.wikipedia.org/wiki/Woke","This is just unbeliveable. We now have to have female presenters (ethnic & disabled a big bonus it appears) on every TV program. No issue with that if they know what they are doing but they don't. For instance, the recent World chamionship darts tournament had a female darts **expert**. Her **expertise** comes from getting to the quarter finals 10 Years ago. My mom can throw better darts than her and she's 91, knackered knees and a new hip. Gasing is too good for these woke criminals.","Firing squad,the fucking lot of them.","woke.jpg","07-01-2021"),
+(16,"David Cameron","https://en.wikipedia.org/wiki/David_Cameron","Brexit and taking back-handers. In a recent interview he admitted it was a mistake to bring the referundum just to appease the back benchers.","Firing squad","camtheman.jpg","07-01-2021"),
+(17,"Dr Death & Dr Doom","https://en.wikipedia.org/wiki/Chris_Whitty","AKA Chris Whitty & Patrick Valance. Added on behalf of my brother who is a major conspiracy theorist. He calls them Dr Death & Dr Doom. Apparently, he recons, the whole thing has been invented to stop the planes from flying for 1 Year????? I declined to press this further when we were both inebriated over Christmas and quite frankly, I didn't have the life energy. ","When this carnage is over, lets never mention them again.","whitty.jpg","07-01-2021"),
+(18,"Famous for being Famous.","https://en.wikipedia.org/wiki/Famous_for_being_famous","So called celebrities. Famous for existing. Anyone on big brother really.The Kardashianss. God help us all. Celebrity is a celebration of achievement isn't it? We'd better make a lot more bullets as there are a lot of 'em.","Firing squad, all their monies used to help the poor.","15minutes.jpg","09-01-2021"),
+(19,"Motorists who cut in.","https://en.wikipedia.org/wiki/Driving_etiquette","So your in a long queue on the motorway because one lane is out.  That person who hurtles down the outside lane and then expects you to let him/her in. Not on my watch buddy, not happening. Inconsiderate. Most probably a BMW ofcourse.","Car crushed and removal of their appendages.","car.jpg","09-01-2021"),
+(20,"East Bloody Enders","https://en.wikipedia.org/wiki/EastEnders","The most depressing thing I have ever seen. Everyone shouts at each other (See Brian Blessed)","Cancel the x thing as soon as possible","eastenders.jpg","09-01-2021")
+EOF

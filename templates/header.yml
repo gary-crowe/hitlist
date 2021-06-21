@@ -1,0 +1,11 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+name: app-template
+metadata:
+  name: app-template
+  annotation:
+    tags: java
+    iconClass: icon-rh-openjdk
+    openshift.io/display-name: The APPLICATION template    
+    description: This Template creates the APPLICATION
+objects:

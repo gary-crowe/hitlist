@@ -1,0 +1,7 @@
+gunicorn
+PyMySQL
+Flask
+flask-sqlalchemy
+flask_bootstrap
+flask_wtf
+cryptography

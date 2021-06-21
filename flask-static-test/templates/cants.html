@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- the full dict for a president is sent here as pres by the route -->
+
+<h1>{{ pres['DickHead'] }}</h1>
+
+<!-- NOTE the pattern for pointing to a file inside the static folder -->
+<img class="right" src="{{ url_for('static', filename='images/' + pres['Image']) }}" alt="Cant's portrait">
+
+<p><h2>Ranking: {{ ord }}</h2>
+<h2>Crime against the state:</h2>
+{{ pres['Crime'] }} 
+
+<h2>Sentence:</h2>
+{{ pres['Sentence'] }}
+</p>
+
+{% if pres['Wikipedia-entry'] != '' %}
+
+<p><a href="{{ pres['Wikipedia-entry'] }}">View Wikipedia entry for {{ pres['DickHead'] }}.</a></p>
+
+{% endif %}
+
+<!-- NOTE the way to link to a route: Use the function name -->
+<p><a href="{{ url_for('index') }}">Return to the list</a> to select a different Twat.</p>
+
+{% endblock %}

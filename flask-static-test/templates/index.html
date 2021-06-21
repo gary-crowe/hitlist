@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Come the glorious revolution</h1>
+
+<p>Click any of these assholes to find out more.</p>
+
+<!-- pairs is a list that must be sent here by a route function
+
+     The list will contain pairs: Execution order & name. -->
+
+    <ul>
+    {% for pair in pairs %}
+        <li><a href="{{ url_for( 'detail', num=pair[0] ) }}">{{ pair[1] }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

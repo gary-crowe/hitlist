@@ -1,0 +1,19 @@
+FROM registry.redhat.io/rhscl/mysql-80-rhel7
+
+MAINTAINER Gary Crowe, gary.crowe@computacenter.com
+USER 0
+
+#RUN yum install -y --disableplugin=subscription-manager httpd24 sed && \
+#    yum --disableplugin=subscription-manager clean all
+
+#RUN sed -i 's/Listen 80/Listen 8080/' /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf && \
+#  chgrp -R 0 /var/log/httpd24 /opt/rh/httpd24/root/var/run/httpd && \
+#  chmod -R g=u /var/log/httpd24  /opt/rh/httpd24/root/var/run/httpd
+
+LABEL io.k8s.description="A basic MySQL Server image" \
+      io.k8s.display-name="MySQL Server" \
+      io.openshift.tags="mysql"
+
+ENV MYSQL_DATABASE cants
+USER 1001
+COPY ./sql-scripts/ /docker-entrypoint-initdb.d/

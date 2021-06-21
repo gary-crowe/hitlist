@@ -1,0 +1,18 @@
+{{- if .Values.route.enabled -}}
+{{- $fullName := include "blacklist.fullname" . -}}
+{{- end }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "blacklist.labels" . | nindent 4 }}
+spec:
+  host: {{ .Values.route.host }}
+    port:
+      targetPort: '8080-tcp'
+    to:
+      kind: Service
+      name: {{ .Release.Name }}
+      weight: 100
+    wildcardPolicy: None

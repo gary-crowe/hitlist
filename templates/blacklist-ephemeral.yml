@@ -17,13 +17,13 @@ metadata:
       WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing
     iconClass: icon-python
     openshift.io/display-name: TheBlackList (Ephemeral)
-    openshift.io/documentation-url: http://bastion2.zbd.local:3000/gary/TheBlackList
+    openshift.io/documentation-url: https://github.com/gary-crowe/hitlist
     openshift.io/long-description: This template provides a flask application
       with a database created.  The database is not stored on persistent storage,
       so any restart of the service will result in all data being lost.  The database
       name, username, and password are all pre-defined.
     openshift.io/provider-display-name: Go Red Industries (Comrades LTD)
-    openshift.io/support-url:  http://bastion2.zbd.local:3000/gary/TheBlackList
+    openshift.io/support-url:  https://github.com/gary-crowe/hitlist
     tags: blacklist,mysql,python
   name: blacklist-ephemeral
 objects:
@@ -69,7 +69,7 @@ objects:
     source:
       contextDir: flask-with-oshift
       git:
-        uri: http://bastion2.zbd.local:3000/gary/TheBlackList.git
+        uri: https://github.com/gary-crowe/hitlist
       type: Git
     strategy:
       sourceStrategy:
@@ -98,8 +98,8 @@ objects:
     source:
       contextDir: flask-with-oshift
       git:
-        ref: clean
-        uri: http://bastion2.zbd.local:3000/gary/TheBlackList
+#     ref: clean
+        uri: https://github.com/gary-crowe/hitlist
       type: Git
     strategy:
       sourceStrategy:

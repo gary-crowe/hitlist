@@ -29,7 +29,7 @@ def detail(num):
         return f"<h1>Invalid value for Position: {num}</h1>"
     # a little bonus function, imported on line 2 above
     ord = make_ordinal( int(num) )
-    return render_template('cants.html', pres=cant_dict, ord=ord, the_title=cant_dict['DickHead'])
+    return render_template('cants.html', pres=cant_dict, ord=ord, the_title=cant_dict['Idiot'])
 
 
 # keep this as is

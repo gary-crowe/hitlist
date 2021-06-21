@@ -1,66 +1,65 @@
-- apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    annotations:
-      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"theblacklist:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"theblacklist\")].image"}]'
-    labels:
-      app: {{ .Values.appblacklist }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"theblacklist:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"theblacklist\")].image"}]'
+  labels:
+    app: {{ .Values.appblacklist }}
+  name: {{ .Values.appblacklist }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
     name: {{ .Values.appblacklist }}
-  spec:
-    replicas: {{ .Values.replicaCount }}
-    selector:
-      matchLabels:
+  template:
+    metadata:
+      labels:
         deployment: {{ .Values.appblacklist }}
-    template:
-      metadata:
-        labels:
-          deployment: {{ .Values.appblacklist }}
-      spec:
-        containers:
-        - env:
-          - name: MYSQL_DATABASE
-            value: {{ .Values.mysql_Database }}
-          - name: MYSQL_HOST
-            value: {{ .Values.mysql_Host }}
-          - name: MYSQL_PASSWORD
-            value: {{ .Values.mysql_Password }}
-          - name: MYSQL_USER
-            value: {{ .Values.mysql_User }}
-          name: {{ .Values.appblacklist }}
-          image: ' '
-          ports:
-          - containerPort: {{ .Values.service.port }}
-            protocol: TCP
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: {{ .Values.mysql_Database }}
+        - name: MYSQL_HOST
+          value: {{ .Values.mysql_Host }}
+        - name: MYSQL_PASSWORD
+          value: {{ .Values.mysql_Password }}
+        - name: MYSQL_USER
+          value: {{ .Values.mysql_User }}
+        name: {{ .Values.appblacklist }}
+        image: ' '
+        ports:
+        - containerPort: {{ .Values.service.port }}
+          protocol: TCP
 ---
-- apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    annotations:
-      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"mysql:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"mysql\")].image"}]'
-    labels:
-      app: {{ .Values.appmysql }}
-    name: {{ .Values.appmysql }}
-  spec:
-    replicas: {{ .Values.replicaCount }}
-    selector:
-      matchLabels:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"mysql:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"mysql\")].image"}]'
+  labels:
+    app: {{ .Values.appmysql }}
+  name: {{ .Values.appmysql }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      deployment: {{ .Values.appmysql }}
+  template:
+    metadata:
+      annotations:
+      labels:
         deployment: {{ .Values.appmysql }}
-    template:
-      metadata:
-        annotations:
-        labels:
-          deployment: {{ .Values.appmysql }}
-      spec:
-        containers:
-        - env:
-          - name: MYSQL_DATABASE
-            value: {{ .Values.mysql_Database }}
-          - name: MYSQL_PASSWORD
-            value: {{ .Values.mysql_Password }}
-          - name: MYSQL_USER
-            value: {{ .Values.mysql_User }}
-          name: {{ .Values.appmysql }}
-          image: ' '
-          ports:
-          - containerPort: {{ .Values.mysql_Port }}
-            protocol: TCP
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: {{ .Values.mysql_Database }}
+        - name: MYSQL_PASSWORD
+          value: {{ .Values.mysql_Password }}
+        - name: MYSQL_USER
+          value: {{ .Values.mysql_User }}
+        name: {{ .Values.appmysql }}
+        image: ' '
+        ports:
+        - containerPort: {{ .Values.mysql_Port }}
+          protocol: TCP

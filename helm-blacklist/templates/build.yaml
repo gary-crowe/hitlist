@@ -14,7 +14,7 @@ spec:
   source:
     contextDir: flask-with-oshift
     git:
-      uri: http://bastion2.zbd.local:3000/gary/TheBlackList.git
+      uri: https://github.com/gary-crowe/hitlist
     type: Git
   strategy:
     sourceStrategy:
@@ -27,7 +27,7 @@ spec:
   - type: ConfigChange
   - imageChange: {}
     type: ImageChange
-
+---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
@@ -45,7 +45,7 @@ spec:
     contextDir: flask-with-oshift
     git:
       ref: clean
-      uri: http://bastion2.zbd.local:3000/gary/TheBlackList
+      uri: https://github.com/gary-crowe/hitlist
     type: Git
   strategy:
     sourceStrategy:

@@ -7,7 +7,9 @@ mysql_Database: offenders
 mysql_Host: mysql
 mysql_Password: redhat123
 mysql_User: gary
-mysql_Port: 3306
+mysql_Port: '3306'
+appmysql: mysql
+appblacklist: theblacklist
 
 image:
   repository: ""

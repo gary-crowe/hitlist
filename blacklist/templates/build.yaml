@@ -45,7 +45,6 @@ spec:
   source:
     contextDir: flask-with-oshift
     git:
-      ref: clean
       uri: https://github.com/gary-crowe/hitlist
     type: Git
   strategy:

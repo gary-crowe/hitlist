@@ -1,25 +1,20 @@
-##############
-# Deployments
-# ############
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     annotations:
       image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"theblacklist:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"theblacklist\")].image"}]'
     labels:
-      app: theblacklist
-    name: theblacklist
+      app: {{ .Values.appblacklist }}
+    name: {{ .Values.appblacklist }}
   spec:
     replicas: {{ .Values.replicaCount }}
     selector:
       matchLabels:
-        deployment: theblacklist
-    strategy: {}
+        deployment: {{ .Values.appblacklist }}
     template:
       metadata:
-        annotations:
         labels:
-          deployment: theblacklist
+          deployment: {{ .Values.appblacklist }}
       spec:
         containers:
         - env:
@@ -31,12 +26,11 @@
             value: {{ .Values.mysql_Password }}
           - name: MYSQL_USER
             value: {{ .Values.mysql_User }}
+          name: {{ .Values.appblacklist }}
           image: ' '
-          name: theblacklist
           ports:
           - containerPort: {{ .Values.service.port }}
             protocol: TCP
-          resources: {}
 ---
 - apiVersion: apps/v1
   kind: Deployment
@@ -44,18 +38,18 @@
     annotations:
       image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"mysql:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"mysql\")].image"}]'
     labels:
-      app: mysql
-    name: mysql
+      app: {{ .Values.appmysql }}
+    name: {{ .Values.appmysql }}
   spec:
-    replicas: 1
+    replicas: {{ .Values.replicaCount }}
     selector:
       matchLabels:
-        deployment: mysql
+        deployment: {{ .Values.appmysql }}
     template:
       metadata:
         annotations:
         labels:
-          deployment: mysql
+          deployment: {{ .Values.appmysql }}
       spec:
         containers:
         - env:
@@ -65,8 +59,8 @@
             value: {{ .Values.mysql_Password }}
           - name: MYSQL_USER
             value: {{ .Values.mysql_User }}
+          name: {{ .Values.appmysql }}
           image: ' '
-          name: mysql
           ports:
           - containerPort: {{ .Values.mysql_Port }}
             protocol: TCP

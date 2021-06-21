@@ -22,6 +22,6 @@ convert image.jpg -resize 600x400 > image.jpg
 This example doesn't have any code to add/delete entires. That's hopefully included in the dynamic code which will run micorservices for mysql, flask & mongodb so we can run this in kubernetes.  See the python-flask-dynamic directory.
 
 Currently a work in progress as I am still learning how to do all of this.
-G.Crowe 5/1/2020
+G.Crowe 5/1/2021
 
 .

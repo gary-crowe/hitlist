@@ -1,0 +1,72 @@
+##############
+# Deployments
+# ############
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"theblacklist:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"theblacklist\")].image"}]'
+    labels:
+      app: theblacklist
+    name: theblacklist
+  spec:
+    replicas: {{ .Values.replicaCount }}
+    selector:
+      matchLabels:
+        deployment: theblacklist
+    strategy: {}
+    template:
+      metadata:
+        annotations:
+        labels:
+          deployment: theblacklist
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_DATABASE
+            value: {{ .Values.mysql_Database }}
+          - name: MYSQL_HOST
+            value: {{ .Values.mysql_Host }}
+          - name: MYSQL_PASSWORD
+            value: {{ .Values.mysql_Password }}
+          - name: MYSQL_USER
+            value: {{ .Values.mysql_User }}
+          image: ' '
+          name: theblacklist
+          ports:
+          - containerPort: {{ .Values.service.port }}
+            protocol: TCP
+          resources: {}
+---
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"mysql:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"mysql\")].image"}]'
+    labels:
+      app: mysql
+    name: mysql
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        deployment: mysql
+    template:
+      metadata:
+        annotations:
+        labels:
+          deployment: mysql
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_DATABASE
+            value: {{ .Values.mysql_Database }}
+          - name: MYSQL_PASSWORD
+            value: {{ .Values.mysql_Password }}
+          - name: MYSQL_USER
+            value: {{ .Values.mysql_User }}
+          image: ' '
+          name: mysql
+          ports:
+          - containerPort: {{ .Values.mysql_Port }}
+            protocol: TCP

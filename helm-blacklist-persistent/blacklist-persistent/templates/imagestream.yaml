@@ -1,9 +1,10 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  annotations:
+  annotations: null
   labels:
     app: theblacklist
+    template: blacklist-persistent
   name: theblacklist
 spec:
   lookupPolicy:
@@ -12,10 +13,11 @@ spec:
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  annotations:
+  annotations: null
   creationTimestamp: null
   labels:
     app: mysql
+    template: blacklist-persistent
   name: mysql
 spec:
   lookupPolicy:

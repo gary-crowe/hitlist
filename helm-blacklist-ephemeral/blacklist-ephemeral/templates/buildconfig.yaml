@@ -1,10 +1,9 @@
----
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  annotations:
   labels:
     app: theblacklist
+    template: blacklist-ephemeral
   name: theblacklist
 spec:
   nodeSelector: null
@@ -32,9 +31,10 @@ spec:
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  annotations:
+  annotations: null
   labels:
     app: mysql
+    template: blacklist-ephemeral
   name: mysql
 spec:
   nodeSelector: null

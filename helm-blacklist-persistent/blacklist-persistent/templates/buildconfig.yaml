@@ -1,9 +1,9 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  annotations:
   labels:
     app: theblacklist
+    template: blacklist-persistent
   name: theblacklist
 spec:
   nodeSelector: null
@@ -31,9 +31,10 @@ spec:
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  annotations:
+  annotations: null
   labels:
     app: mysql
+    template: blacklist-persistent
   name: mysql
 spec:
   nodeSelector: null
@@ -44,7 +45,6 @@ spec:
   source:
     contextDir: flask-with-oshift
     git:
-      ref: clean
       uri: https://github.com/gary-crowe/hitlist
     type: Git
   strategy:

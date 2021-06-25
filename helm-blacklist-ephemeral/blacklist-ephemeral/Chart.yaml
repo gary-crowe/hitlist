@@ -1,0 +1,7 @@
+description: |-
+  TheBlacklist, without persistent storage. For more information about using this template, see https://github.com/gary-crowe/hitlist
+
+  WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing
+name: blacklist-ephemeral
+tags: blacklist,mysql,python
+version: v0.0.1

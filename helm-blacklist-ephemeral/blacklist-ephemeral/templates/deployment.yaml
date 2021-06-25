@@ -4,32 +4,37 @@ metadata:
   annotations:
     image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"theblacklist:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"theblacklist\")].image"}]'
   labels:
-    app: {{ .Values.appblacklist }}
-  name: {{ .Values.appblacklist }}
+    app: theblacklist
+    template: blacklist-ephemeral
+  name: theblacklist
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
-    name: {{ .Values.appblacklist }}
+    matchLabels:
+      deployment: theblacklist
+  strategy: {}
   template:
     metadata:
+      annotations: null
       labels:
-        deployment: {{ .Values.appblacklist }}
+        deployment: theblacklist
     spec:
       containers:
       - env:
         - name: MYSQL_DATABASE
-          value: {{ .Values.mysql_Database }}
+          value: {{ .Values.mysql_database }}
         - name: MYSQL_HOST
-          value: {{ .Values.mysql_Host }}
+          value: mysql
         - name: MYSQL_PASSWORD
-          value: {{ .Values.mysql_Password }}
+          value: {{ .Values.mysql_password }}
         - name: MYSQL_USER
-          value: {{ .Values.mysql_User }}
-        name: {{ .Values.appblacklist }}
+          value: {{ .Values.mysql_user }}
         image: ' '
+        name: theblacklist
         ports:
-        - containerPort: {{ .Values.service.port }}
+        - containerPort: 8080
           protocol: TCP
+        resources: {}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -37,29 +42,34 @@ metadata:
   annotations:
     image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"mysql:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"mysql\")].image"}]'
   labels:
-    app: {{ .Values.appmysql }}
-  name: {{ .Values.appmysql }}
+    app: mysql
+    template: blacklist-ephemeral
+  name: mysql
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      deployment: {{ .Values.appmysql }}
+      deployment: mysql
   template:
     metadata:
-      annotations:
+      annotations: null
       labels:
-        deployment: {{ .Values.appmysql }}
+        deployment: mysql
     spec:
       containers:
       - env:
         - name: MYSQL_DATABASE
-          value: {{ .Values.mysql_Database }}
+          value: {{ .Values.mysql_database }}
+        - name: MYSQL_OPERATIONS_PASSWORD
+          value: oppass
+        - name: MYSQL_OPERATIONS_USER
+          value: opuser
         - name: MYSQL_PASSWORD
-          value: {{ .Values.mysql_Password }}
+          value: {{ .Values.mysql_password }}
         - name: MYSQL_USER
-          value: {{ .Values.mysql_User }}
-        name: {{ .Values.appmysql }}
+          value: {{ .Values.mysql_user }}
         image: ' '
+        name: mysql
         ports:
-        - containerPort: {{ .Values.mysql_Port }}
+        - containerPort: 3306
           protocol: TCP

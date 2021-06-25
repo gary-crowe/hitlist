@@ -17,6 +17,8 @@ Very much a work in progress.
 | sql-scripts | Contains SQL statements used to populate database |
 | static | Static code |
 | templates | Openshift templating files |
+| helm-blacklist-ephemeral | Helm template for ephemeral install |
+| helm-blacklist-persistent | HELM template for persistent install |
 
 # Files
 | File | Description |

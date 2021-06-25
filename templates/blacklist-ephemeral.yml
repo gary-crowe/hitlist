@@ -12,7 +12,7 @@ message: |-
 metadata:
   annotations:
     description: |-
-      TheBlacklist, without persistent storage. For more information about using this template, see http://bastion2.zbd.local:3000/gary/TheBlackList
+      TheBlacklist, without persistent storage. For more information about using this template, see https://github.com/gary-crowe/hitlist
 
       WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing
     iconClass: icon-python

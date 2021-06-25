@@ -1,0 +1,7 @@
+database_service_name: mysql
+memory_limit: 512Mi
+mysql_database: offenders
+mysql_password: '# TODO: must define a default value for .mysql_password'
+mysql_user: '# TODO: must define a default value for .mysql_user'
+mysql_version: latest
+volume_capacity: 1Gi

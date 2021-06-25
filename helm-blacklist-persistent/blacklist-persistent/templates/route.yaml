@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: theblacklist
+    template: blacklist-persistent
+  name: theblacklist
+spec:
+  host: theblacklist.apps.ocp.local
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: theblacklist
+    weight: 100
+  wildcardPolicy: None

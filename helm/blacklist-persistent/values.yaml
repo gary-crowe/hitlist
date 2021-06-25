@@ -1,0 +1,7 @@
+database_service_name: mysql
+memory_limit: 512Mi
+mysql_database: offenders
+mysql_password: redhat123
+mysql_user: gary
+mysql_version: latest
+volume_capacity: 1Gi

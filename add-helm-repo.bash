@@ -6,5 +6,5 @@ metadata:
 spec:
   name: garys-repo
   connectionConfig:
-    url: https://github.com/gary-crowe/hitlist/my-helm-charts
+    url: https://gary-crowe.github.io/my-helm-repository/
 EOF

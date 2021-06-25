@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"theblacklist:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"theblacklist\")].image"}]'
+  labels:
+    app: theblacklist
+    template: blacklist-persistent
+  name: theblacklist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: theblacklist
+  strategy: {}
+  template:
+    metadata:
+      annotations: null
+      labels:
+        deployment: theblacklist
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: {{ .Values.mysql_database }}
+        - name: MYSQL_HOST
+          value: mysql
+        - name: MYSQL_PASSWORD
+          value: {{ .Values.mysql_password }}
+        - name: MYSQL_USER
+          value: {{ .Values.mysql_user }}
+        image: ' '
+        name: theblacklist
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"mysql:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"mysql\")].image"}]'
+  labels:
+    app: mysql
+    template: blacklist-persistent
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: mysql
+  template:
+    metadata:
+      annotations: null
+      labels:
+        deployment: mysql
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: {{ .Values.mysql_database }}
+        - name: MYSQL_OPERATIONS_PASSWORD
+          value: oppass
+        - name: MYSQL_OPERATIONS_USER
+          value: opuser
+        - name: MYSQL_PASSWORD
+          value: {{ .Values.mysql_password }}
+        - name: MYSQL_USER
+          value: {{ .Values.mysql_user }}
+        image: ' '
+        name: mysql
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -i
+            - -c
+            - MYSQL_PWD="$MYSQL_PASSWORD" mysqladmin -u $MYSQL_USER ping
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        resources:
+          limits:
+            memory: {{ .Values.memory_limit }}
+        volumeMounts:
+        - mountPath: /var/lib/mysql/data
+          name: {{ .Values.database_service_name }}-data
+      volumes:
+      - name: {{ .Values.database_service_name }}-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.database_service_name }}

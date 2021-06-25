@@ -1,0 +1,60 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: theblacklist
+    template: blacklist-ephemeral
+  name: theblacklist
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: theblacklist:latest
+  source:
+    contextDir: flask-with-oshift
+    git:
+      uri: https://github.com/gary-crowe/hitlist
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: python:3.8-ubi8
+        namespace: openshift
+    type: Source
+  triggers:
+  - type: ConfigChange
+  - imageChange: {}
+    type: ImageChange
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations: null
+  labels:
+    app: mysql
+    template: blacklist-ephemeral
+  name: mysql
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: mysql:latest
+  source:
+    contextDir: flask-with-oshift
+    git:
+      uri: https://github.com/gary-crowe/hitlist
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: mysql:8.0
+        namespace: openshift
+    type: Source
+  triggers:
+  - type: ConfigChange
+  - imageChange: {}
+    type: ImageChange

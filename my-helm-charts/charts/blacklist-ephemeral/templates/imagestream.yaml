@@ -1,0 +1,24 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations: null
+  labels:
+    app: theblacklist
+    template: blacklist-ephemeral
+  name: theblacklist
+spec:
+  lookupPolicy:
+    local: false
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations: null
+  creationTimestamp: null
+  labels:
+    app: mysql
+    template: blacklist-ephemeral
+  name: mysql
+spec:
+  lookupPolicy:
+    local: false

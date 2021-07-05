@@ -52,7 +52,7 @@ The HTTPS URL of this code repository which should be supplied to the _Git Repos
 
 * https://https://github.com/gary-crowe/hitlist#branch
 
-If using the ``oc`` command line tool instead of the OpenShift web console, to deploy this sample Python web application, you can run:
+If using the ```oc``` command line tool instead of the OpenShift web console, to deploy this sample Python web application, you can run:
 
 ```
 oc new-app https://github.com/gary-crowe/hitlist#branch
@@ -62,11 +62,11 @@ oc new-app https://github.com/gary-crowe/hitlist#branch
 
 In this case, because no language type was specified, OpenShift will determine the language by inspecting the code repository. Because the code repository contains a ``requirements.txt``, it will subsequently be interpreted as including a Python application. When such automatic detection is used, ``python:latest`` will be used.
 
-If needing to select a specific Python version when using ``oc new-app``, you should instead use the form:
+If needing to select a specific Python version when using ```oc new-app```, you should instead use the form:
 
 ```
 oc new-app python:3.6~https://github.com/gary-crowe/hitlist -e ...
-
+```
 ## Compile the mysql container with:
 ```
 podman build -t thelist:latest .
@@ -80,7 +80,7 @@ podman run -d -p 3306:3306  --name my-mysql \
      -e MYSQL_USER=myuser -e MYSQL_PASSWORD=XXXX \
      -e MYSQL_DATABASE=offenders -e MYSQL_ROOT_PASSWORD=XXXX registry.redhat.io/rhscl/mysql-80-rhel7
 
-podman exec -it my-mysql /opt/rh/rh-mysql80/root/usr/bin/mysql -ugary -p
+podman exec -it my-mysql /opt/rh/rh-mysql80/root/usr/bin/mysql -ugary -pXXXX
 
 https://medium.com/better-programming/customize-your-mysql-database-in-docker-723ffd59d8fb
 

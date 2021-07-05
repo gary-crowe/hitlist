@@ -31,7 +31,7 @@ If using the ``oc`` command line tool instead of the OpenShift web console, to d
 ```
 oc new-app https://gitlab.gsclabs.cc/gcrowe/openshift-flask#branch \
   --name myflask \
-  -e MYSQL_HOST=mysql -e MYSQL_DATABASE=offenders -e MYSQL_USER=gary -e MYSQL_PASSWORD=redhat123
+  -e MYSQL_HOST=mysql -e MYSQL_DATABASE=offenders -e MYSQL_USER=myuser -e MYSQL_PASSWORD=XXXXX
 ```
 
 In this case, because no language type was specified, OpenShift will determine the language by inspecting the code repository. Because the code repository contains a ``requirements.txt``, it will subsequently be interpreted as including a Python application. When such automatic detection is used, ``python:latest`` will be used.

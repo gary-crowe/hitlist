@@ -57,7 +57,7 @@ If using the ``oc`` command line tool instead of the OpenShift web console, to d
 ```
 oc new-app https://github.com/gary-crowe/hitlist#branch
   --name TheBlackList \
-  -e MYSQL_HOST=mysql -e MYSQL_DATABASE=offenders -e MYSQL_USER=gary -e MYSQL_PASSWORD=xxxx
+  -e MYSQL_HOST=mysql -e MYSQL_DATABASE=offenders -e MYSQL_USER=myuser -e MYSQL_PASSWORD=xxxx
 ```
 
 In this case, because no language type was specified, OpenShift will determine the language by inspecting the code repository. Because the code repository contains a ``requirements.txt``, it will subsequently be interpreted as including a Python application. When such automatic detection is used, ``python:latest`` will be used.
@@ -72,13 +72,13 @@ oc new-app python:3.6~https://github.com/gary-crowe/hitlist -e ...
 podman build -t thelist:latest .
 ```
 # Run pod with:
-podman run -d -p 3306:3306  --name my-mysql -e MYSQL_ROOT_PASSWORD=supersecret localhost/thelist:0.1
+podman run -d -p 3306:3306  --name my-mysql -e MYSQL_ROOT_PASSWORD=XXXXX localhost/thelist:0.1
 
 ## If using the redhat image you need to pass a few more flags
 
 podman run -d -p 3306:3306  --name my-mysql \
-     -e MYSQL_USER=gary -e MYSQL_PASSWORD=redhat123 \
-     -e MYSQL_DATABASE=offenders -e MYSQL_ROOT_PASSWORD=redhat123 registry.redhat.io/rhscl/mysql-80-rhel7
+     -e MYSQL_USER=myuser -e MYSQL_PASSWORD=XXXX \
+     -e MYSQL_DATABASE=offenders -e MYSQL_ROOT_PASSWORD=XXXX registry.redhat.io/rhscl/mysql-80-rhel7
 
 podman exec -it my-mysql /opt/rh/rh-mysql80/root/usr/bin/mysql -ugary -p
 

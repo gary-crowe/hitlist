@@ -1,4 +1,4 @@
-# Flask app: cants
+# Flask app: hitlist
 This is a clone and edit of a flash example for static page delivery. I used this to develp the initial idea of "thelist". These people, come the glorious revolution, will be held accountable. A bit of fun with my colleagues, in an otherwise gloomy World.  
 
 This app is discussed in the [Flask Templates chapter](https://python-adv-web-apps.readthedocs.io/en/latest/flask3.html#) of **Python Beginners.**
@@ -6,7 +6,7 @@ This app is discussed in the [Flask Templates chapter](https://python-adv-web-ap
 ## Instructions.
 1. Fireup the applicaton:
 ```
-python cants.py &
+python offenders.py &
 ```
 2. Launch a local browser and point it at socket 5000 on 'localhost'
 

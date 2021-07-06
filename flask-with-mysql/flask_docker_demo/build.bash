@@ -1,2 +1,2 @@
-podman build --layers --force-rm --tag flask .
-podman run -dt --name flask localhost/flask
+podman build --layers --force-rm --tag flask:latest .
+podman run -d --name flask -p 5001:5001 flask:latest

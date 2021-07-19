@@ -133,6 +133,8 @@ objects:
       image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"theblacklist:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"theblacklist\")].image"}]'
     labels:
       app: theblacklist
+      app.kubernetes.io/name: python
+      app.kubernetes.io/part-of: thehitlist
     name: theblacklist
   spec:
     replicas: 1
@@ -169,6 +171,8 @@ objects:
       image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"mysql:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"mysql\")].image"}]'
     labels:
       app: mysql
+      app.kubernetes.io/name: mysql-database
+      app.kubernetes.io/part-of: thehitlist
     name: mysql
   spec:
     replicas: 1

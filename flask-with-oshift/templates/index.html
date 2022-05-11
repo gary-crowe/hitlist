@@ -13,13 +13,14 @@
 
     <ul>
     {% for hitlist in range(pointer, pointer+12) %}
-        {% if num[hitlist] %}
+        {% if pair[hitlist] %}
             <li><a href="{{ url_for( 'detail', num=pair[hitlist] ) }}">{{ pair[hitlist+1] }}</a></li>
         {% endif %}
     {% endfor %}
     </ul>
 
 <a href="{{ url_for('index') }}"><button>Refresh</button></a>
-<a href="{{ url_for('Back') }}"><button>Back</button></a>
-<a href="{{ url_for('Forward') }}"><button>Forward</button></a>
+<form action="" method="POST" ><button class="btn btn-danger" type="submit" name="back" value="{{  pointer = pointer-12  }}"><span class="glyphicon glyphicon-trash"></span> Back</button> </form>
+<form action="" method="POST" ><button class="btn btn-danger" type="submit" name="forwards" value="{{  pointer = pointer+12  }}"><span class="glyphicon glyphicon-trash"></span> Forwards</button> </form>
+</form>
 {% endblock %}

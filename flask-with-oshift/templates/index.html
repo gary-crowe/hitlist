@@ -15,6 +15,7 @@
     {% for hitlist in range(pointer, pointer+12) %}
         {% if num[hitlist] %}
             <li><a href="{{ url_for( 'detail', num=pair[hitlist] ) }}">{{ pair[hitlist+1] }}</a></li>
+        {% endif %}
     {% endfor %}
     </ul>
 

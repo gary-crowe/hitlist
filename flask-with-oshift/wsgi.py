@@ -1,3 +1,4 @@
+# Imports first
 import os, pymysql
 from datetime import date
 from flask import Flask, render_template, request, flash
@@ -11,16 +12,16 @@ from sqlalchemy.sql import text
 
 # check for environment variables. These will get passed from Openshift and setup the user/DB etc
 if not os.getenv("MYSQL_HOST"):
-    raise RuntimeError("MYSQL_HOST is not set")
+    raise RuntimeError("Oops!  MYSQL_HOST is not set")
 
 if not os.getenv("MYSQL_DATABASE"):
-    raise RuntimeError("MYSQL_DATABASE is not set")
+    raise RuntimeError("Oops!  MYSQL_DATABASE is not set")
 
 if not os.getenv("MYSQL_USER"):
-    raise RuntimeError("MYSQL_USER is not set")
+    raise RuntimeError("Oops!  MYSQL_USER is not set")
 
 if not os.getenv("MYSQL_PASSWORD"):
-    raise RuntimeError("MYSQL_PASSWORD is not set")
+    raise RuntimeError("Oops!  MYSQL_PASSWORD is not set")
 
 userpass = 'mysql+pymysql://' + os.getenv("MYSQL_USER") + ':' + os.getenv("MYSQL_PASSWORD") + '@'
 
@@ -34,10 +35,13 @@ app.config['SECRET_KEY'] = 'OadkAPVqDYO3g7ZHmyFFuESfpvzloSFI'
 
 # this variable, db, will be used for all SQLAlchemy commands
 db = SQLAlchemy(app)
-
+# Where we are in the list
+pointer = 1
 # each table in the database needs a class to be created for it
 # identify all columns by name and data type
 # Databse fileds: id,Name,Wikipedia-entry,Crime,Sentence,Image
+# For multiuser, we probably want to add username - TODO
+
 class Gits(db.Model):
     __tablename__ = 'gits'
     position = db.Column(db.Integer, primary_key=True)
@@ -58,7 +62,7 @@ class Gits(db.Model):
 
 class AddRecord(FlaskForm):
     position = HiddenField()
-    offender = StringField('Offenders name or thing')
+    offender = StringField('Offenders name or thingi you detest')
     wiki = StringField('Wikipedia entry')
     crime = StringField('The Crime')
     punishment = StringField('The Punishment')

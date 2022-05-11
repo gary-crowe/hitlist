@@ -89,7 +89,7 @@ def index():
     for p in Gits.query.order_by(Gits.position).all():
         pairs_list.append( (p.position, p.offender) )
 
-    return render_template('index.html', pairs=pairs_list, the_title="The Hit List")
+    return render_template('index.html', pairs=pairs_list, pointer=pointer, the_title="The Hit List")
 
 # second route : Show specific offender
 @app.route('/cant/<num>')

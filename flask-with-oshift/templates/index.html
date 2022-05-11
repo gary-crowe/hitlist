@@ -13,8 +13,8 @@
 
     <ul>
     {% for hitlist in range(pointer, pointer+12) %}
-        {% if pair[hitlist] %}
-            <li><a href="{{ url_for( 'detail', num=pair[hitlist] ) }}">{{ pair[hitlist+1] }}</a></li>
+        {% if pairs[hitlist] %}
+            <li><a href="{{ url_for( 'detail', num=pairs[hitlist] ) }}">{{ pairs[hitlist+1] }}</a></li>
         {% endif %}
     {% endfor %}
     </ul>

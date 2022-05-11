@@ -24,12 +24,12 @@ cryptography
 To deploy this sample Python web application from the OpenShift web console, you should select ``python:3`` or ``python:latest``. 
 The HTTPS URL of this code repository which should be supplied to the _Git Repository URL_ field when using _Add to project_ is:
 
-* https://gitlab.gsclabs.cc/gcrowe/openshift-flask#branch
+* https://github.com/gary_crowe/openshift-flask#branch
 
 If using the ``oc`` command line tool instead of the OpenShift web console, to deploy this sample Python web application, you can run:
 
 ```
-oc new-app https://gitlab.gsclabs.cc/gcrowe/openshift-flask#branch \
+oc new-app https://github.com/gary_crowe/openshift-flask#branch \
   --name myflask \
   -e MYSQL_HOST=mysql -e MYSQL_DATABASE=offenders -e MYSQL_USER=myuser -e MYSQL_PASSWORD=XXXXX
 ```
@@ -39,5 +39,5 @@ In this case, because no language type was specified, OpenShift will determine t
 If needing to select a specific Python version when using ``oc new-app``, you should instead use the form:
 
 ```
-oc new-app python:3.6~https://gitlab.gsclabs.cc/gcrowe/openshift-flask -e ...
+oc new-app python:3.6~https://github.com/gary_crowe/openshift-flask -e ...
 ```

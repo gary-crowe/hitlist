@@ -36,7 +36,7 @@ app.config['SECRET_KEY'] = 'OadkAPVqDYO3g7ZHmyFFuESfpvzloSFI'
 # this variable, db, will be used for all SQLAlchemy commands
 db = SQLAlchemy(app)
 # Where we are in the list
-pointer = 1
+pointer = 0
 # each table in the database needs a class to be created for it
 # identify all columns by name and data type
 # Databse fileds: id,Name,Wikipedia-entry,Crime,Sentence,Image

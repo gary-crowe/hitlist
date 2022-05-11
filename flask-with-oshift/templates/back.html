@@ -1,5 +1,0 @@
-@app.route("/forward/", methods=['POST'])
-def move_backward():
-    #Previous 12 offenders
-    pointer = pointer - 12
-    return render_template('index.html', pairs=pairs_list, pointer=pointer, the_title="The Hit List")

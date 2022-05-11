@@ -133,6 +133,20 @@ def add_record():
                 ), 'error')
         return render_template('add_record.html', form1=form1)
 
+# This is the back button
+@app.route("/back/", methods=['POST'])
+def move_backward():
+    #Previous 12 offenders
+    pointer = pointer - 12
+    return render_template('index.html', pairs=pairs_list, pointer=pointer, the_title="The Hit List")
+
+# And the forwards button
+@app.route("/forward/", methods=['POST'])
+def move_forward():
+    #The next 12 offenders
+    pointer = pointer + 12
+    return render_template('index.html', pairs=pairs_list, pointer=pointer, the_title="The Hit List")
+
 # keep this as is
 if __name__ == '__main__':
     app.run(debug=True)

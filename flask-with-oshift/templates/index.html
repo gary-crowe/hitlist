@@ -20,6 +20,10 @@
     </ul>
 
 <a href="{{ url_for('index') }}"><button>Refresh</button></a>
-<a href="{{ url_for('back') }}"><button>Back</button></a>
-<a href="{{ url_for('forward') }}"><button>Forward</button></a>
+<form action="/back/" method="post">
+    <button name="backBtn" type="submit">Back</button>
+</form>
+<form action="/forward/" method="post">
+    <button name="forwardBtn" type="submit">Forward</button>
+</form>
 {% endblock %}

@@ -12,7 +12,7 @@
      The list will contain pairs: Execution order & name. -->
 
     <ul>
-    {% for hitlist in range(pointer, pointer+12) %}
+    {% for hitlist in range(pointer, pointer+5) %}
         {% if pairs[hitlist] %}
             <li><a href="{{ url_for( 'detail', num=pairs[hitlist] ) }}">{{ pairs[hitlist+1] }}</a></li>
         {% endif %}

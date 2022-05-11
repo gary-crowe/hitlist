@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<img class="right" src="{{ url_for('static', filename='images/' + 'hammer.jpg') }}" alt="Comrades">
+<img class="right" src="{{ url_for('static', filename='images/' + 'comrades.jpg') }}" alt="Power to the people">
 <h2>Come the glorious revolution brothers, 'the list' will be implemented.</h2>
 <a href="{{ url_for( 'add_record' ) }}"><button>Add Entry</button></a>
 
@@ -20,7 +20,6 @@
     </ul>
 
 <a href="{{ url_for('index') }}"><button>Refresh</button></a>
-<form action="" method="POST" ><button class="btn btn-danger" type="submit" name="back" value="{{  pointer = pointer-12  }}"><span class="glyphicon glyphicon-trash"></span> Back</button> </form>
-<form action="" method="POST" ><button class="btn btn-danger" type="submit" name="forwards" value="{{  pointer = pointer+12  }}"><span class="glyphicon glyphicon-trash"></span> Forwards</button> </form>
-</form>
+<a href="{{ url_for('index') }}"><button value="{{  pointer = pointer-12  }}">Back</button></a>
+<a href="{{ url_for('index') }}"><button value="{{  pointer = pointer+12  }}">Fordward</button></a>
 {% endblock %}

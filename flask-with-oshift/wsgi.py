@@ -81,10 +81,13 @@ def stringdate():
     date_string = date_list[1] + "-" + date_list[2] + "-" + date_list[0]
     return date_string
 
-# first route : index.html
+# ######################## #
+# first route : index.html #
+# ######################## #
 @app.route('/')
 def index():
     # Create a list of entries from database
+    global pointer=0 # Use the global variable
     pairs_list = []
 
     for p in Gits.query.order_by(Gits.position).all():
@@ -92,7 +95,9 @@ def index():
 
     return render_template('index.html', pairs=pairs_list, pointer=pointer)
 
-# second route : Show specific offender
+# ##################################### #
+# second route : Show specific offender #
+# ##################################### #
 @app.route('/cant/<num>')
 def detail(num):
     try:
@@ -127,7 +132,7 @@ def forward():
 
     global pointer # Use the global variable
     pointer = pointer+12
-    if pointer > Gits.query.count():
+    if pointer > Gits.query.count() - 12:
        pointer = Gits.query.count() - 12
 
     # Create a list of entries from database

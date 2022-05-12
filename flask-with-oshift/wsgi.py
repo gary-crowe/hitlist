@@ -127,7 +127,7 @@ def forward():
 
     global pointer # Use the global variable
     pointer = pointer+12
-    if pointer > total=Gits.query.count():
+    if pointer > Gits.query.count():
        pointer = Gits.query.count() - 12
 
     # Create a list of entries from database

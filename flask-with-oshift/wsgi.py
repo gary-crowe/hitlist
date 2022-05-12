@@ -62,7 +62,7 @@ class Gits(db.Model):
 
 class AddRecord(FlaskForm):
     position = HiddenField()
-    offender = StringField('Offenders name or thingi you detest')
+    offender = StringField('Offenders name or thing you detest')
     wiki = StringField('Wikipedia entry')
     crime = StringField('The Crime')
     punishment = StringField('The Punishment')
@@ -102,6 +102,28 @@ def detail(num):
     
     ord = make_ordinal( int(num) )
     return render_template('cants.html', pres=Found, ord=ord, total=Gits.query.count())
+
+# route : back.html When back button pressed, go back 12 spaces through list
+@app.route('/back')
+def back():
+    # Create a list of entries from database
+    pairs_list = []
+
+    for p in Gits.query.order_by(Gits.position).all():
+        pairs_list.append( (p.position, p.offender) )
+
+    return render_template('index.html', pairs=pairs_list, pointer=pointer-12, the_title="The Hit List")
+
+# route : forward.html When forward button pressed, display next 12 entries
+@app.route('/forward')
+def forward():
+    # Create a list of entries from database
+    pairs_list = []
+
+    for p in Gits.query.order_by(Gits.position).all():
+        pairs_list.append( (p.position, p.offender) )
+
+    return render_template('index.html', pairs=pairs_list, pointer=pointer+12, the_title="The Hit List")
 
 # Add a new Offender to the database
 @app.route('/add_record', methods=['GET', 'POST'])

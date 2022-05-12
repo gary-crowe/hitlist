@@ -106,24 +106,28 @@ def detail(num):
 # route : back.html When back button pressed, go back 12 spaces through list
 @app.route('/back')
 def back():
+
+    pointer = pointer-12
     # Create a list of entries from database
     pairs_list = []
 
     for p in Gits.query.order_by(Gits.position).all():
         pairs_list.append( (p.position, p.offender) )
 
-    return render_template('index.html', pairs=pairs_list, pointer=pointer-12, the_title="The Hit List")
+    return render_template('index.html', pairs=pairs_list, pointer, the_title="The Hit List")
 
 # route : forward.html When forward button pressed, display next 12 entries
 @app.route('/forward')
 def forward():
+
+    pointer = pointer+12
     # Create a list of entries from database
-    pairs_list = []
+    #pairs_list = []
 
-    for p in Gits.query.order_by(Gits.position).all():
-        pairs_list.append( (p.position, p.offender) )
+    #for p in Gits.query.order_by(Gits.position).all():
+    #    pairs_list.append( (p.position, p.offender) )
 
-    return render_template('index.html', pairs=pairs_list, pointer=pointer+12, the_title="The Hit List")
+    return render_template('index.html', pairs=pairs_list, pointer, the_title="The Hit List")
 
 # Add a new Offender to the database
 @app.route('/add_record', methods=['GET', 'POST'])

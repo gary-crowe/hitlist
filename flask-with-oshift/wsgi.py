@@ -107,7 +107,7 @@ def detail(num):
 @app.route('/back')
 def back():
 
-    pointer = pointer-12
+    pointer=pointer-12
     # Create a list of entries from database
     pairs_list = []
 
@@ -120,7 +120,7 @@ def back():
 @app.route('/forward')
 def forward():
 
-    pointer = pointer+12
+    pointer = pointer + 12
     # Create a list of entries from database
     #pairs_list = []
 

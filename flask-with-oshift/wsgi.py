@@ -105,7 +105,7 @@ def detail(num):
 
 # route : back.html When back button pressed, go back 12 spaces through list
 @app.route('/back')
-def back():
+def back(pointer):
 
     pointer=pointer-12
     # Create a list of entries from database

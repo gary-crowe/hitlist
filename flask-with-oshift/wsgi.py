@@ -89,7 +89,7 @@ def index():
     for p in Gits.query.order_by(Gits.position).all():
         pairs_list.append( (p.position, p.offender) )
 
-    return render_template('index.html', pairs=pairs_list, pointer=pointer, the_title="The Hit List")
+    return render_template('index.html', pairs=pairs_list, pointer=pointer)
 
 # second route : Show specific offender
 @app.route('/cant/<num>')
@@ -114,7 +114,7 @@ def back():
     for p in Gits.query.order_by(Gits.position).all():
         pairs_list.append( (p.position, p.offender) )
 
-    return render_template('index.html', pairs=pairs_list, pointer, the_title="The Hit List")
+    return render_template('index.html', pairs=pairs_list, pointer=pointer)
 
 # route : forward.html When forward button pressed, display next 12 entries
 @app.route('/forward')
@@ -127,7 +127,7 @@ def forward():
     #for p in Gits.query.order_by(Gits.position).all():
     #    pairs_list.append( (p.position, p.offender) )
 
-    return render_template('index.html', pairs=pairs_list, pointer, the_title="The Hit List")
+    return render_template('index.html', pairs=pairs_list, pointer=pointer)
 
 # Add a new Offender to the database
 @app.route('/add_record', methods=['GET', 'POST'])

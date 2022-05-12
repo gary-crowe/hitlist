@@ -108,25 +108,31 @@ def detail(num):
 @app.route('/back')
 def back():
 
+    global pointer # Use the global variable
+    pointer = pointer-12
+
     # Create a list of entries from database
-    #pairs_list = []
+    pairs_list = []
 
-    #for p in Gits.query.order_by(Gits.position).all():
-    #    pairs_list.append( (p.position, p.offender) )
+    for p in Gits.query.order_by(Gits.position).all():
+        pairs_list.append( (p.position, p.offender) )
 
-    return render_template('index.html', pairs=pairs_list, pointer=pointer-12)
+    return render_template('index.html', pairs=pairs_list, pointer=pointer)
 
 # route : display next 12 entries
 @app.route('/forward')
 def forward():
 
+    global pointer # Use the global variable
+    pointer = pointer+12
+
     # Create a list of entries from database
-    #pairs_list = []
+    pairs_list = []
 
-    #for p in Gits.query.order_by(Gits.position).all():
-    #    pairs_list.append( (p.position, p.offender) )
+    for p in Gits.query.order_by(Gits.position).all():
+        pairs_list.append( (p.position, p.offender) )
 
-    return render_template('index.html', pairs=pairs_list, pointer=pointer+12)
+    return render_template('index.html', pairs=pairs_list, pointer=pointer)
 
 # ################################## #
 # Add a new Offender to the database

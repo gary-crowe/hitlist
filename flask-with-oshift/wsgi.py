@@ -87,7 +87,9 @@ def stringdate():
 @app.route('/')
 def index():
     # Create a list of entries from database
-    global pointer=0 # Use the global variable
+    global pointer # Use the global variable
+
+    pointer = 0 # Set to beginning of list
     pairs_list = []
 
     for p in Gits.query.order_by(Gits.position).all():

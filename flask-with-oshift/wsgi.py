@@ -110,6 +110,8 @@ def back():
 
     global pointer # Use the global variable
     pointer = pointer-12
+    if pointer < 0:
+      pointer = 0
 
     # Create a list of entries from database
     pairs_list = []
@@ -125,6 +127,8 @@ def forward():
 
     global pointer # Use the global variable
     pointer = pointer+12
+    if pointer > total=Gits.query.count():
+       pointer = total=Gits.query.count() - 12
 
     # Create a list of entries from database
     pairs_list = []

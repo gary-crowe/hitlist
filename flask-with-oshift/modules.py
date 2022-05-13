@@ -35,13 +35,6 @@ def test_make_ordinal():
     for i in range(1,46):
         print(make_ordinal(i))
 
-def search_the_list(list):
-    for item in list:
-        if "Whig" in item['Party']:
-            print(item['President'] + " was a Whig.")
-    for k in list[0].keys():
-        print(k)
-
 # run tryouts
 if __name__ == '__main__':
     test_make_ordinal()

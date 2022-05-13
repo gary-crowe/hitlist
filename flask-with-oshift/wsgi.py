@@ -1,3 +1,4 @@
+# Imports first
 import os, pymysql
 from datetime import date
 from flask import Flask, render_template, request, flash
@@ -11,16 +12,16 @@ from sqlalchemy.sql import text
 
 # check for environment variables. These will get passed from Openshift and setup the user/DB etc
 if not os.getenv("MYSQL_HOST"):
-    raise RuntimeError("MYSQL_HOST is not set")
+    raise RuntimeError("Oops!  MYSQL_HOST is not set")
 
 if not os.getenv("MYSQL_DATABASE"):
-    raise RuntimeError("MYSQL_DATABASE is not set")
+    raise RuntimeError("Oops!  MYSQL_DATABASE is not set")
 
 if not os.getenv("MYSQL_USER"):
-    raise RuntimeError("MYSQL_USER is not set")
+    raise RuntimeError("Oops!  MYSQL_USER is not set")
 
 if not os.getenv("MYSQL_PASSWORD"):
-    raise RuntimeError("MYSQL_PASSWORD is not set")
+    raise RuntimeError("Oops!  MYSQL_PASSWORD is not set")
 
 userpass = 'mysql+pymysql://' + os.getenv("MYSQL_USER") + ':' + os.getenv("MYSQL_PASSWORD") + '@'
 
@@ -34,10 +35,14 @@ app.config['SECRET_KEY'] = 'OadkAPVqDYO3g7ZHmyFFuESfpvzloSFI'
 
 # this variable, db, will be used for all SQLAlchemy commands
 db = SQLAlchemy(app)
+# Where we are in the list
+pointer = 0
 
 # each table in the database needs a class to be created for it
 # identify all columns by name and data type
 # Databse fileds: id,Name,Wikipedia-entry,Crime,Sentence,Image
+# For multiuser, we probably want to add username - TODO
+
 class Gits(db.Model):
     __tablename__ = 'gits'
     position = db.Column(db.Integer, primary_key=True)
@@ -58,7 +63,7 @@ class Gits(db.Model):
 
 class AddRecord(FlaskForm):
     position = HiddenField()
-    offender = StringField('Offenders name or thing')
+    offender = StringField('Offenders name or thing you detest')
     wiki = StringField('Wikipedia entry')
     crime = StringField('The Crime')
     punishment = StringField('The Punishment')
@@ -76,18 +81,25 @@ def stringdate():
     date_string = date_list[1] + "-" + date_list[2] + "-" + date_list[0]
     return date_string
 
-# first route : index.html
+# ######################## #
+# first route : index.html #
+# ######################## #
 @app.route('/')
 def index():
     # Create a list of entries from database
+    global pointer # Use the global variable
+
+    pointer = 0 # Set to beginning of list
     pairs_list = []
 
     for p in Gits.query.order_by(Gits.position).all():
         pairs_list.append( (p.position, p.offender) )
 
-    return render_template('index.html', pairs=pairs_list, the_title="The Hit List")
+    return render_template('index.html', pairs=pairs_list, pointer=pointer)
 
-# second route : Show specific offender
+# ##################################### #
+# second route : Show specific offender #
+# ##################################### #
 @app.route('/cant/<num>')
 def detail(num):
     try:
@@ -99,7 +111,43 @@ def detail(num):
     ord = make_ordinal( int(num) )
     return render_template('cants.html', pres=Found, ord=ord, total=Gits.query.count())
 
+# route : back.html When back button pressed, go back 12 spaces through list
+@app.route('/back')
+def back():
+
+    global pointer # Use the global variable
+    pointer = pointer-12
+    if pointer < 0:
+      pointer = 0
+
+    # Create a list of entries from database
+    pairs_list = []
+
+    for p in Gits.query.order_by(Gits.position).all():
+        pairs_list.append( (p.position, p.offender) )
+
+    return render_template('index.html', pairs=pairs_list, pointer=pointer)
+
+# route : display next 12 entries
+@app.route('/forward')
+def forward():
+
+    global pointer # Use the global variable
+    pointer = pointer+12
+    if pointer > Gits.query.count() - 12:
+       pointer = Gits.query.count() - 12
+
+    # Create a list of entries from database
+    pairs_list = []
+
+    for p in Gits.query.order_by(Gits.position).all():
+        pairs_list.append( (p.position, p.offender) )
+
+    return render_template('index.html', pairs=pairs_list, pointer=pointer)
+
+# ################################## #
 # Add a new Offender to the database
+# ################################## #
 @app.route('/add_record', methods=['GET', 'POST'])
 def add_record():
     form1 = AddRecord()
@@ -129,6 +177,6 @@ def add_record():
                 ), 'error')
         return render_template('add_record.html', form1=form1)
 
-# keep this as is
+# If run from Python directly, launch in debug mode
 if __name__ == '__main__':
     app.run(debug=True)

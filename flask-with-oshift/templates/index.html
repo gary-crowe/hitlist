@@ -2,7 +2,9 @@
 
 {% block content %}
 
-<img class="right" src="{{ url_for('static', filename='images/' + 'comrades.jpg') }}" alt="Power to the People">
+
+<img class="right" src="{{ url_for('static', filename='images/' + 'comrades.jpg') }}" alt="Power to the people">
+
 <h2>Come the glorious revolution brothers, 'the list' will be implemented.</h2>
 <a href="{{ url_for( 'add_record' ) }}"><button>Add Entry</button></a>
 
@@ -12,9 +14,16 @@
      The list will contain pairs: Execution order & name. -->
 
     <ul>
-    {% for pair in pairs %}
-        <li><a href="{{ url_for( 'detail', num=pair[0] ) }}">{{ pair[1] }}</a></li>
+    {% for hitlist in range(pointer, pointer+12) %}
+        {% if pairs[hitlist] %}
+            <li><a href="{{ url_for( 'detail', num=pairs[hitlist][0] ) }}">{{ pairs[hitlist][1] }}</a></li>
+        {% endif %}
     {% endfor %}
     </ul>
-<a href="{{ url_for('index') }}"><button>REFRESH</button></a>
+
+<a href="{{ url_for('index') }}"><button>Refresh</button></a>
+<a href="{{ url_for('back') }}"><button>Back</button></a>
+<a href="{{ url_for('forward') }}"><button>Forwards</button></a>
+
+<p><span class="small">This is just a bit of fun. Don't bother emailing me with your complaints, get a life instead or risk being added to <b>"The list"</b></span></p>
 {% endblock %}

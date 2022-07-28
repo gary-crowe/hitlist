@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv-flask
+  namespace: hitlist
+spec:
+  type: ClusterIP
+  selector:
+    app: blacklist
+  ports:
+    - name: web
+      protocol: TCP
+      port: 80
+      targetPort: 5000

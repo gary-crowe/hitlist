@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskapi-deployment
+  labels:
+    app: blacklist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blacklist
+  template:
+    metadata:
+      labels:
+        app: blacklist
+    spec:
+      containers:
+        - name: blacklist
+          image: quay.io/gary_crowe/hitlist
+          imagePullPolicy: "IfNotPresent"
+
+          ports:
+            - containerPort: 5000
+              name: blacklist
+              protocol: TCP
+          env:
+            - name: MYSQL_DATABASE
+              value: offenders
+
+            - name: MYSQL_USER
+              value: gary
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: flaskapi-secrets
+                  key: db_root_password
+            - name: MYSQL_HOST
+              value: mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blacklist-service
+  annotations:
+    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "100"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+    protocol: TCP
+  selector:
+    app: blacklist
+#spec:
+#  ports:
+#  - port: 5000
+##    protocol: TCP
+#    targetPort: 5000
+#  selector:
+#    app: blacklist
+#  type: LoadBalancer

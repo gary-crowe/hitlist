@@ -1,4 +1,5 @@
 # Position,offender,Wikipedia-entry,Crime,Sentence,Image,Creation,Updated
+use offenders;
 CREATE TABLE gits (
 position TINYINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 offender varchar(40),

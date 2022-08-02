@@ -17,3 +17,46 @@ kubectl create deployment hello-world --image=quay.io/gary_crowe/flask
 kubectl expose deployment/hello-world --type=NodePort --port=80 --name=hello-world-service --target-port=5000
 ```
 
+1. Create the hitlist namespace
+```yaml
+kubectl create namespace hitlist
+```
+2. Create the nfs storgae class
+```yaml
+kubectl apply -f sc.yml
+```
+3. Edit the NFS PV's already created in the cluster so they are storage type "nfs"
+```yaml
+Name:            pv001
+Annotations:     pv.kubernetes.io/bound-by-controller: yes
+StorageClass:    nfs
+Status:          Bound
+Claim:           hitlist/mysql-pvc
+Reclaim Policy:  Recycle
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        30Gi
+Node Affinity:   <none>
+Source:
+    Type:      NFS (an NFS mount that lasts the lifetime of a pod)
+    Server:    192.168.122.167
+    Path:      /pv001
+    ReadOnly:  false
+```
+4. Create the PV claim
+```yaml
+kubectl create -f pvc-nfs.yml
+```
+5. Create the secret
+```yaml
+kubectl create -f secret.yml
+```
+6. Create the mysql deployment
+```yaml
+kubectl create -f mysql-deploy.yml
+```
+7. Create the Service for mysql
+```yaml
+kubectl create -f svc-mysql.yml
+```
+

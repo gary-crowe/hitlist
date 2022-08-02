@@ -1,10 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: flask-ingress
+  name: flask-test
   namespace: hitlist
 spec:
-  ingressClassName: flask-hitlist
+  ingressClassName: flask-hitlist-test
   rules:
   - http:
       paths:
@@ -14,5 +14,5 @@ spec:
           service:
             name: srv-flask
             port:
-              number: 80
+              number: 8080
 

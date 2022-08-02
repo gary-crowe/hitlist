@@ -4,7 +4,6 @@ metadata:
   name: srv-flask
   namespace: hitlist
 spec:
-  type: ClusterIP
   selector:
     app: blacklist
   ports:
@@ -12,3 +11,4 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 5000
+  type: LoadBalancer

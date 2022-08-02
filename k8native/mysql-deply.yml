@@ -19,7 +19,6 @@ spec:
       containers:
       - name: mysql
         image: mysql:5.6
-        imagePullPolicy: "IfNotPresent"
         ports:
         - containerPort: 3306
           name: db-container
@@ -45,5 +44,5 @@ spec:
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
-            claimName: mysql-pv-claim
+            claimName: mysql-pvc
 ---

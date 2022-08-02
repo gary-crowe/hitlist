@@ -1,0 +1,14 @@
+# sc-nfs.yaml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: hitlist
+spec:
+  storageClassName: nfs
+  accessModes:
+  - ReadWriteOnce
+  resources:
+     requests:
+       storage: 10Gi 

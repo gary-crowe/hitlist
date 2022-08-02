@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flaskapi-deployment
+  namespace: hitlist
   labels:
     app: blacklist
 spec:
@@ -54,11 +55,3 @@ spec:
     protocol: TCP
   selector:
     app: blacklist
-#spec:
-#  ports:
-#  - port: 5000
-##    protocol: TCP
-#    targetPort: 5000
-#  selector:
-#    app: blacklist
-#  type: LoadBalancer

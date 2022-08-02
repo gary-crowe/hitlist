@@ -18,12 +18,10 @@ spec:
     spec:
       containers:
         - name: blacklist
-          image: quay.io/gary_crowe/hitlist
+          image: quay.io/gary_crowe/flask
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
-              name: blacklist
-              protocol: TCP
           env:
             - name: MYSQL_DATABASE
               value: offenders

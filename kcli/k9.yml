@@ -1,5 +1,5 @@
 cluster: gc
-api_ip: 192.168.122.250
+api_ip: 192.168.122.230
 network: default
 domain: zbd.local
 masters: 1
@@ -13,3 +13,10 @@ apps:
 memory: 8192
 metallb: true
 metallb_range: 192.168.122.240-192.168.122.249
+master_memory: 16384
+numcpus: 2
+worker_memory: 8192
+sdn: calico
+ingress: true
+ingress_method: nginx
+

@@ -4,3 +4,7 @@ flask-sqlalchemy
 flask_bootstrap
 flask_wtf
 cryptography
+Flask-MySQL
+PyMySQL
+uWSGI
+mysql-connector-python

@@ -19,8 +19,7 @@ spec:
       containers:
         - name: blacklist
           image: quay.io/gary_crowe/hitlist
-          imagePullPolicy: "IfNotPresent"
-
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
               name: blacklist
@@ -40,18 +39,3 @@ spec:
             - name: MYSQL_HOST
               value: mysql
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: blacklist-service
-  annotations:
-    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
-    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
-    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "100"
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 5000
-    protocol: TCP
-  selector:
-    app: blacklist

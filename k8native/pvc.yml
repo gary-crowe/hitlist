@@ -5,9 +5,9 @@ metadata:
   name: mysql-pv-claim
   namespace: hitlist
 spec:
-  storageClassName: local-storage
+  storageClassName: nfs
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi

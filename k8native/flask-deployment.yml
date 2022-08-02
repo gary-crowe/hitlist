@@ -39,4 +39,3 @@ spec:
                   key: db_root_password
             - name: MYSQL_HOST
               value: mysql
----

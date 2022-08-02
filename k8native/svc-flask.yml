@@ -1,14 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: srv-flask
-  namespace: hitlist
+  name: svc-flask
 spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5000
   selector:
     app: blacklist
-  ports:
-    - name: web
-      protocol: TCP
-      port: 80
-      targetPort: 5000
   type: LoadBalancer

@@ -1,17 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: flask-test
+  name: ingress-hitlist
+  namespace: hitlist
 spec:
-  ingressClassName: flask-hitlist-test
+  ingressClassName: nginx
   rules:
-  - http:
+  - host: hitlist.mycluster.kubernetes
+    http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: srv-flask
+            name: svc-flask
             port:
-              number: 8080
+              number: 5000
 

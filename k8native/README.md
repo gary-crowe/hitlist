@@ -8,11 +8,6 @@ This will assume that you have a storage class of "nfs" for the PVC. Edit pvc.ym
 
 1. Create the hitlist namespace
 2. ```kustomize build . | kubectl create -f - ```
-3. Populate the initial mysql database:
-```yaml
-NAME=$(kubectl get pods -o custom-columns=:metadata.name -n blacklist | grep mysql)
-kubectl exec -i $NAME -n blacklist -- mysql -uroot -pXXXXX offenders < sql-scripts/Populate.sql
-```
 #
 # Installing manually (far more fun)
 1. Create the hitlist namespace
@@ -49,15 +44,19 @@ kubectl create -f pvc-nfs.yml
 ```yaml
 kubectl create -f secret.yml
 ```
-6. Create the mysql deployment
+6. Create the ConfigMap that gets mounted as a disk with DB initialisation commands
+```yaml
+kubectl create -f configmap.yml
+```
+7. Create the mysql deployment
 ```yaml
 kubectl create -f mysql-deploy.yml
 ```
-7. Create the Service for mysql
+8. Create the Service for mysql
 ```yaml
 kubectl create -f svc-mysql.yml
 ```
-8. Create the flask service (load-balancer via metallb on kcli)
+9. Create the flask service (load-balancer via metallb on kcli)
 ```yaml
 kubectl get svc -n hitlist
 NAME        TYPE           CLUSTER-IP     EXTERNAL-IP       PORT(S)        AGE
@@ -69,10 +68,9 @@ NAME        ENDPOINTS          AGE
 mysql       10.244.1.13:3306   16h
 svc-flask   10.244.2.12:5000   16h
 ```
-9. Populate the initial mysql database:
-```yaml
-kubectl exec -i <mysql-pod> -n hitlist -- mysql -uroot -pXXXXXXX offenders < sql-scripts/Populate.sql
-```
+ And that's it. Point your browser at the External IP.
+#
+
 #
 ## General notes
 https://stackoverflow.com/questions/45681780/how-to-initialize-mysql-container-when-created-on-kubernetes
@@ -91,4 +89,8 @@ kubectl exec -i mysql-856b4ff659-7cw9n -- mysql -uroot -predhat123 offenders < s
 ```yaml
 kubectl create deployment hello-world --image=quay.io/gary_crowe/flask
 kubectl expose deployment/hello-world --type=NodePort --port=80 --name=hello-world-service --target-port=5000
+```
+# Populate mysql database from file:
+```yaml
+kubectl exec -i <mysql-pod> -n hitlist -- mysql -uroot -pXXXXXXX offenders < sql-scripts/Populate.sql
 ```

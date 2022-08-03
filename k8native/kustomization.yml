@@ -5,6 +5,7 @@ commonAnnotations:
   CreatedBy: gary.crowe@computacenter.com
 resources:
   - pvc.yml
+  - configmap.yml
   - secret.yml
   - mysql-deply.yml
   - svc-mysql.yml

@@ -1,27 +1,9 @@
-# General notes
-https://stackoverflow.com/questions/45681780/how-to-initialize-mysql-container-when-created-on-kubernetes
-```bash
-kubectl create secret generic mysql-secret --from-literal=mysql-root-password=kube1234 
-    --from-literal=mysql-user=testadm --from-literal=mysql-password=kube1234
-```
-```bash
-kubectl create configmap db --from-literal=mysql-database: database
-```
-# Populate database
-```bash
-kubectl exec -i mysql-856b4ff659-7cw9n -- mysql -uroot -predhat123 offenders < sql-scripts/CreateTable.sql
-```
-# Comand line args:
-```yaml
-kubectl create deployment hello-world --image=quay.io/gary_crowe/flask
-kubectl expose deployment/hello-world --type=NodePort --port=80 --name=hello-world-service --target-port=5000
-```
-
+# Instructions to imlement this code
 1. Create the hitlist namespace
 ```yaml
 kubectl create namespace hitlist
 ```
-2. Create the nfs storgae class
+2. Create the nfs storage class
 ```yaml
 kubectl apply -f sc.yml
 ```
@@ -59,4 +41,34 @@ kubectl create -f mysql-deploy.yml
 ```yaml
 kubectl create -f svc-mysql.yml
 ```
+8. Create the flask service (load-balancer via metallb on kcli)
+```yaml
+kubectl get svc -n hitlist
+NAME        TYPE           CLUSTER-IP     EXTERNAL-IP       PORT(S)        AGE
+mysql       ClusterIP      10.97.15.121   <none>            3306/TCP       16h
+svc-flask   LoadBalancer   10.105.32.43   192.168.122.242   80:31432/TCP   16h
 
+kubectl get ep -n hitlist
+NAME        ENDPOINTS          AGE
+mysql       10.244.1.13:3306   16h
+svc-flask   10.244.2.12:5000   16h
+```
+#
+## General notes
+https://stackoverflow.com/questions/45681780/how-to-initialize-mysql-container-when-created-on-kubernetes
+```bash
+kubectl create secret generic mysql-secret --from-literal=mysql-root-password=kube1234 
+    --from-literal=mysql-user=testadm --from-literal=mysql-password=kube1234
+```
+```bash
+kubectl create configmap db --from-literal=mysql-database: database
+```
+# Populate database
+```bash
+kubectl exec -i mysql-856b4ff659-7cw9n -- mysql -uroot -predhat123 offenders < sql-scripts/CreateTable.sql
+```
+# Comand line args:
+```yaml
+kubectl create deployment hello-world --image=quay.io/gary_crowe/flask
+kubectl expose deployment/hello-world --type=NodePort --port=80 --name=hello-world-service --target-port=5000
+```

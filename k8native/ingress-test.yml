@@ -2,7 +2,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: flask-test
-  namespace: hitlist
 spec:
   ingressClassName: flask-hitlist-test
   rules:

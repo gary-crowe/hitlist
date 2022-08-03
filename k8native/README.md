@@ -1,4 +1,15 @@
-# Instructions to imlement this code
+# Instructions to implement this code.
+This has been tested on my home k8's cluster that was built using the excellent kcli tool.
+Used as a learning exercise to muck about with kubernetes, kustomize and various k8's features.
+
+## Install using kustomize
+Install kustomize onto your target development machine: https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
+This will assume that you have a storage class of "nfs" for the PVC. Edit pvc.yml to suit your build.
+
+1. Create the hitlist namespace
+2. ```kustomize build . | kubectl create -f - ```
+#
+# Installing manually (far more fun)
 1. Create the hitlist namespace
 ```yaml
 kubectl create namespace hitlist

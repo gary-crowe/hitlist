@@ -8,6 +8,11 @@ This will assume that you have a storage class of "nfs" for the PVC. Edit pvc.ym
 
 1. Create the hitlist namespace
 2. ```kustomize build . | kubectl create -f - ```
+3. Populate the initial mysql database:
+```yaml
+NAME=$(kubectl get pods -o custom-columns=:metadata.name -n blacklist | grep mysql)
+kubectl exec -i $NAME -n blacklist -- mysql -uroot -pXXXXX offenders < sql-scripts/Populate.sql
+```
 #
 # Installing manually (far more fun)
 1. Create the hitlist namespace
@@ -63,6 +68,10 @@ kubectl get ep -n hitlist
 NAME        ENDPOINTS          AGE
 mysql       10.244.1.13:3306   16h
 svc-flask   10.244.2.12:5000   16h
+```
+9. Populate the initial mysql database:
+```yaml
+kubectl exec -i <mysql-pod> -n hitlist -- mysql -uroot -pXXXXXXX offenders < sql-scripts/Populate.sql
 ```
 #
 ## General notes

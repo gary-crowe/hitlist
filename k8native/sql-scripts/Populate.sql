@@ -1,3 +1,14 @@
+# Position,offender,Wikipedia-entry,Crime,Sentence,Image,Creation,Updated
+use offenders;
+CREATE TABLE gits (
+position TINYINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+offender varchar(40),
+wiki varchar(100),
+crime varchar(500),
+punishment varchar(200),
+image varchar(200),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 INSERT INTO gits (position, offender, wiki, crime, punishment, image)
 VALUES
 (1,"Rod Stewart","https://en.wikipedia.org/wiki/Rod_Stewart","Being a smug git who needs a bloody good kicking. He pretends he is Scottish although he was born in Highgate, London. I could cheerfully kick him repeatedly until the Police arrive.","Firing squad","stewart.jpg"),

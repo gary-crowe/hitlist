@@ -9,6 +9,9 @@
 #	-e MYSQL_USER=gary \
 #	-e MYSQL_PASSWORD=redhat123
 
+# NB. If you launch this from a differtnt namespace, target the actual namesapce like this:
+# -e MYSQL_HOST=mysql.blacklist
+
 # Use this is you have created a private key and secret
 #See: create_github_secret.bash in this folder
 

@@ -2,26 +2,20 @@
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: allow-same-namespace
-  namespace: hitlist
+  name: allow-from-openshift-ingress
 spec:
-  podSelector:
-    matchLabels:
-      app: mysql
+  podSelector: {}
   ingress:
   - from:
-    - podSelector:
+    - namespaceSelector:
         matchLabels:
-          app: theblacklist
-    ports:
-      - protocol: TCP
-        port: 3306
+          network.openshift.io/policy-group: ingress
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: internet-access
-  namespace: hitlist
+  namespace: blacklist
 spec:
   podSelector:
     matchLabels:
@@ -35,7 +29,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default-deny
-  namespace: hitlist
+  namespace: blacklist
 spec:
   podSelector: {}
   policyTypes:

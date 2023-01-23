@@ -10,6 +10,8 @@ spec:
   selector:
     matchLabels:
       app: blacklist
+      app.kubernetes.io/name: python
+      app.kubernetes.io/part-of: thehitlist
   template:
     metadata:
       labels:

@@ -5,6 +5,8 @@ metadata:
   name: mysql
   labels:
     app: database
+    app.kubernetes.io/name: mysql-database
+    app.kubernetes.io/part-of: thehitlist
 spec:
   replicas: 1
   selector:

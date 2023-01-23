@@ -8,6 +8,11 @@ This will assume that you have a storage class of "nfs" for the PVC. Edit pvc.ym
 
 1. Create the hitlist namespace
 2. ```kustomize build . | kubectl create -f - ```
+
+You can also deploy to Openshift with:
+```shell
+oc apply -k .
+```
 #
 # Installing manually (far more fun)
 1. Create the hitlist namespace

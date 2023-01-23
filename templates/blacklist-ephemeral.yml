@@ -62,6 +62,8 @@ objects:
     name: theblacklist
   spec:
     nodeSelector: null
+    successfulBuildsHistoryLimit: 2
+    failedBuildsHistoryLimit: 2
     output:
       to:
         kind: ImageStreamTag

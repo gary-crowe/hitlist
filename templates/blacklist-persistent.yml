@@ -101,6 +101,8 @@ objects:
       app: mysql
     name: mysql
   spec:
+    successfulBuildsHistoryLimit: 2
+    failedBuildsHistoryLimit: 2
     nodeSelector: null
     output:
       to:

@@ -1,0 +1,4 @@
+PyYAML >= 3.11
+urllib3
+requests
+requests-oauthlib

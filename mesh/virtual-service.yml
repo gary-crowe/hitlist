@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: blacklist-vs
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - blacklist-gateway
+  http:
+  - route:
+    - destination:
+        host: blacklist
+        port:
+          name: http-5000
+          number: 5000

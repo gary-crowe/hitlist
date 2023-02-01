@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskapi-deployment
+  labels:
+    app: blacklist
+    app.kubernetes.io/name: mysql-database
+    app.kubernetes.io/part-of: thehitlist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blacklist
+  template:
+    metadata:
+      labels:
+        app: blacklist
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - name: blacklist
+          image: quay.io/gary_crowe/flask
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MYSQL_DATABASE
+              value: offenders
+
+            - name: MYSQL_USER
+              value: gary
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: flaskapi-secrets
+                  key: db_root_password
+            - name: MYSQL_HOST
+              value: mysql
+---

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: database
 spec:
-  type: ClusterIP
+#  type: ClusterIP
   ports:
   - port: 3306
     protocol: TCP

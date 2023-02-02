@@ -16,6 +16,7 @@ spec:
     metadata:
       labels:
         app: blacklist
+        version: v1
       annotations:
         sidecar.istio.io/inject: "true"
     spec:

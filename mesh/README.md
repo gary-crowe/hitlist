@@ -11,7 +11,7 @@ oc new-project ${NAMESPACE}
 ```bash
 oc patch servicemeshmemberroll/default -n istio-system --type=merge -p '{"spec": {"members": ["hitlist"]}}'
 ```
-3. Deploy the mysql & flask deployments. I have created a kustomize file to cwmake your life easier.  These will source pre-built docker images from quay.io
+3. Deploy the mysql & flask deployments. I have created a kustomize file to cwmake your life easier.  These will source pre-built docker images from quay.io.  Edit the namespace in kustomize.yml first!
 ```bash
 oc create -k .
 ```

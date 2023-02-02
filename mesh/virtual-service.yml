@@ -10,7 +10,6 @@ spec:
   http:
   - route:
     - destination:
-        host: blacklist
+        host: svc-flask
         port:
-          name: http-5000
           number: 5000

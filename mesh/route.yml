@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: blacklist
+  namespace: istio-system
+spec:
+  host: blacklist-${NAMESPACE}-istio-system.${APP_SUBDOMAIN}
+  port:
+    targetPort: http2
+  to:
+    kind: Service
+    name: istio-ingressgateway
+    weight: 100
+  wildcardPolicy: None
+

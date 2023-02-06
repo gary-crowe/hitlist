@@ -11,5 +11,5 @@ resources:
   - svc-mysql.yml
   - flask.yml
   - svc-flask.yml
-#  - gateway.yml
-#  - virtual-service.yml
+  - gateway.yml
+  - virtual-service.yml

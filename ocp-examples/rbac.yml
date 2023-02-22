@@ -1,0 +1,18 @@
+# Add admin to gary use in hamespace hitlist
+# oc adm polcy add-role-to-user admin gary -n hitlist
+#
+# To view
+# oc describe rolebinding.rbac -n hitlist
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: admin-0
+  namespace: hitlist
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: gary

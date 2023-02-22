@@ -1,0 +1,6 @@
+# Create a cluster role that views pods
+oc create clusterrole podviewonly --verb=get --resource=pod
+# Now add to your user
+oc adm policy add-role-to-user podviewonly gary
+# Add the role to a group
+oc adm policy add-role-to-group podviewonly <groupname>

@@ -1,0 +1,4 @@
+# Create a local role podview that can view pods in the blue project
+oc create role podview --verb=get --resource=pod -n blue
+# Now assign that to a user:
+oc adm policy add-role-to-user podview gary --role-namespace=blue -n blue

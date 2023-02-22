@@ -1,0 +1,11 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: ClusterTask
+metadata:
+  name: gary
+spec:
+  steps:
+    - image: alpine
+      script: |
+        #!/bin/sh
+        echo 'Meeow!! from Fiz 😺🚀🚀🚀🚀'

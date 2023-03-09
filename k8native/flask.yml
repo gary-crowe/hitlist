@@ -5,13 +5,13 @@ metadata:
   name: flaskapi-deployment
   labels:
     app: blacklist
+    app.kubernetes.io/name: python
+    app.kubernetes.io/part-of: thehitlist
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: blacklist
-      app.kubernetes.io/name: python
-      app.kubernetes.io/part-of: thehitlist
   template:
     metadata:
       labels:

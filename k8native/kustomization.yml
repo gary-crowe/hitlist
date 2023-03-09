@@ -1,6 +1,6 @@
-apiVersion: kustomize.config.k8s.io/v1beta
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: blacklist
+namespace: hitlist
 commonLabels:
   application: theblacklist
 commonAnnotations:

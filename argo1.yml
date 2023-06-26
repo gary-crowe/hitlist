@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: theblacklist
+  name: blacklist-app
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: demo1
+    namespace: theblacklist
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: k8native/
-    repoURL: https://github.com/gary-crowe/hitlist
+    path: argo-hitlist/base
+    repoURL: git@github.com:gary-crowe/argoCD.git
     targetRevision: main
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
-#    syncOptions:
-#    - CreateNamespace=true
+      selfHeal: false
+#   syncOptions:
+#   - CreateNamespace=true

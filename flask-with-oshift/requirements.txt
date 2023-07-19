@@ -1,6 +1,6 @@
 gunicorn
 PyMySQL
-Flask
+Flask == 2.2.5 
 flask-sqlalchemy
 flask_bootstrap
 flask_wtf

@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+  labels:
+    application: theblacklist
+  name: svc-flask
+  namespace: theblacklist
+spec:
+  host: theblacklist.apps.ocp4.vralab.cc
+  port:
+    targetPort: 5000
+  to:
+    kind: Service
+    name: svc-flask
+    weight: 100
+  wildcardPolicy: None

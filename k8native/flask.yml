@@ -19,10 +19,11 @@ spec:
     spec:
       containers:
         - name: blacklist
-          image: quay.io/gary_crowe/flask
+          image: quay.io/gary_crowe/flaskfinal:0.2
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
+              name: web
           env:
             - name: MYSQL_DATABASE
               value: offenders

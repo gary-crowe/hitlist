@@ -20,4 +20,4 @@ EXPOSE 5000
 
 # Define our command to be run when launching the container
 #CMD gunicorn --bind 0.0.0.0:5000 wsgi.py
-CMD [ "python3", "wsgi.py" ]
+gunicorn --bind 127.0.0.1:5000 wsgi:app

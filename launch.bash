@@ -1,5 +1,5 @@
 # Use this to pull from public repo using https:
-oc new-app https://github.com/gary-crowe/hitlist \
+oc new-app https://github.com/gary-crowe/hitlist#testing \
 	--context-dir=flask-with-oshift \
 	--labels app.kubernetes.io/name=python,app.kubernetes.io/part-of=thehitlist \
 	--name theblacklist \

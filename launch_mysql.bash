@@ -1,5 +1,5 @@
 # Use this to pull direct if it's a public repo. http protocol
-oc new-app mysql:8.0~https://github.com/gary-crowe/hitlist \
+oc new-app mysql:8.0~https://github.com/gary-crowe/hitlist#testing \
 	--name mysql \
 	--context-dir=flask-with-oshift \
 	--labels app.kubernetes.io/name=mysql-database,app.kubernetes.io/part-of=thehitlist \

@@ -17,7 +17,9 @@ ADD . /opt/app-root/src
 
 # Make port 5000 available for links and/or publish
 EXPOSE 5000
+ENV FLASK_APP=wsgi.py
 
 # Define our command to be run when launching the container
 #CMD gunicorn --bind 0.0.0.0:5000 wsgi.py
-CMD ["gunicorn" , "wsgi:app" ]
+#CMD ["gunicorn" , "wsgi:app" ]
+ENTRYPOINT [ "flask", "run", "--host=0.0.0.0"]

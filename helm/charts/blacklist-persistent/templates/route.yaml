@@ -6,7 +6,7 @@ metadata:
     template: blacklist-persistent
   name: theblacklist
 spec:
-  host: theblacklist.apps.ocp.local
+#  host: theblacklist.apps.ocp.local
   port:
     targetPort: 8080-tcp
   to:

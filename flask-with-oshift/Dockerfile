@@ -22,4 +22,5 @@ ENV FLASK_APP=wsgi.py
 # Define our command to be run when launching the container
 #CMD gunicorn --bind 0.0.0.0:5000 wsgi.py
 #CMD ["gunicorn" , "wsgi:app" ]
-ENTRYPOINT [ "flask", "run", "--host=0.0.0.0"]
+#ENTRYPOINT [ "flask", "run", "--host=0.0.0.0"]
+ENTRYPOINT [ "gunicorn", "-c", "config.py", "--bind",  "0.0.0.0:5000", "wsgi" ]
